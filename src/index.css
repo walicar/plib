@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  overflow-y: hidden;
+  background-color: #f9fafb;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    overflow-y: hidden;
+    background-color: #020617;
+  }
+}
+
+body {
+  @apply transition-none
+}
+
+article {
+  ul {
+    @apply list-disc list-inside;
+  }
+
+  p {
+    @apply my-3;
+  }
+
+  h2 {
+    @apply text-3xl font-semibold mt-2;
+  }
+
+  pre {
+    white-space: pre-wrap; /* Since CSS 2.1 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+    @apply bg-gray-200 dark:bg-slate-800 px-3 rounded-md my-2;
+  }
+
+  code {
+    @apply bg-gray-200 dark:bg-slate-800 px-2 rounded-md;
+  }
+
+  a {
+    @apply underline text-blue-900 dark:text-blue-300;
+  }
+
+  hr {
+    @apply dark:border-slate-700
+  }
+
+  .footnote {
+    @apply bg-gradient-to-tr from-gray-300 shadow-sm to-gray-50 dark:from-slate-800 dark:to-slate-600 rounded-lg no-underline px-2 py-1
+  }
+
+  .emph {
+    @apply font-semibold
+  }
+}
+
+.animate-gradient {
+  background-size: 300%;
+  -webkit-animation: animatedgradient 2s ease infinite alternate;
+  -moz-animation: animatedgradient 2s ease infinite alternate;
+  animation: animatedgradient 2s ease infinite alternate;
+}
+
+.animate-gradient-slow {
+  background-size: 300%;
+  -webkit-animation: animatedgradient 10s ease infinite alternate;
+  -moz-animation: animatedgradient 10s ease infinite alternate;
+  animation: animatedgradient 10s ease infinite alternate;
+}
+
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
