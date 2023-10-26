@@ -1,17 +1,35 @@
-import { useState } from "react";
-import { useAuth } from "../context/CognitoClient";
-import { AuthClient } from "../../clients/AuthClient";
+import { useState, useRef } from "react";
+import { useCognito } from "../context/CognitoClient";
+import { CognitoIdentityProviderClient, InitiateAuthCommand, AuthFlowType} from "@aws-sdk/client-cognito-identity-provider";
+import { AWSConfig } from "../../config/aws";
 import RecoveryForm from "../forms/RecoveryForm";
 
 function LogInPage() {
-  const authClient: AuthClient = useAuth();
+  const cognitoClient: CognitoIdentityProviderClient = useCognito();
+  const challengeInfo = useRef<any>();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showForm, setShowForm] = useState<boolean>(false);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log(username, password);
-    authClient.authenticate(username, password);
+    const command = new InitiateAuthCommand({
+      AuthFlow: AuthFlowType.USER_PASSWORD_AUTH,
+      AuthParameters: {
+        USERNAME: username,
+        PASSWORD: password,
+      },
+      ClientId: AWSConfig.clientId,
+    });
+    const res = await cognitoClient.send(command);
+    console.log(res);
+    if (res?.ChallengeName == "NEW_PASSWORD_REQUIRED") {
+      console.log("Need to handle NEW_PASSWORD_REQUIRED")
+      challengeInfo.current = res;
+      setShowForm(true);
+    } else {
+      console.log("ALL GOOD")
+    }
   };
   return (
     <>
@@ -45,7 +63,7 @@ function LogInPage() {
           </div>
           <button>Submit</button>
         </form>
-        {showForm ? <RecoveryForm /> : <></>}
+        {showForm ? <RecoveryForm challengeInfo={challengeInfo.current} /> : <></>}
       </div>
     </>
   );

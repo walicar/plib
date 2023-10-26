@@ -3,9 +3,10 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import AppRouter from "./AppRouter";
 import { HelmetProvider } from "react-helmet-async";
 import CognitoContext from "./components/context/CognitoClient";
+import CognitoConfig from "./config/cognito";
 import { CognitoIdentityProviderClient } from "@aws-sdk/client-cognito-identity-provider";
 
-const cognitoClient = new CognitoIdentityProviderClient();
+const cognitoClient = new CognitoIdentityProviderClient(CognitoConfig);
 const queryClient = new QueryClient();
 function App() {
   return (

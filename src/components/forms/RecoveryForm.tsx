@@ -1,20 +1,37 @@
-import { Fragment, useState } from "react";
-import { useAuth } from "../context/CognitoClient";
+import { Fragment, useState, useEffect } from "react";
+import { useCognito } from "../context/CognitoClient";
+import InputStyles from "../../styles/InputStyles";
 import {
   CheckCircleIcon,
   XMarkIcon,
   ExclamationCircleIcon,
 } from "@heroicons/react/20/solid";
 import { Dialog, Transition } from "@headlessui/react";
+import {
+  AuthFlowType,
+  ChallengeNameType,
+  CognitoIdentityProviderClient,
+  RespondToAuthChallengeCommand,
+} from "@aws-sdk/client-cognito-identity-provider";
+import { AWSConfig } from "../../config/aws";
 
-const RecoveryForm: React.FC = () => {
+type Prop = {
+  challengeInfo: any;
+};
+
+const RecoveryForm: React.FC<Prop> = ({ challengeInfo }) => {
+  // could refactor this to be "respond to challenge form"
+  const cognitoClient: CognitoIdentityProviderClient = useCognito();
   const [open, setOpen] = useState(true);
   const [show, setShow] = useState(false);
-  const authClient = useAuth();
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [isValidPassword, setIsValidPassword] = useState(true);
+
+  useEffect(() => {
+    console.log(challengeInfo);
+  }, []);
 
   const clearForm = () => {
     setPassword("");
@@ -37,8 +54,20 @@ const RecoveryForm: React.FC = () => {
       setErrorMessage("Passwords do not match");
       return;
     }
-    // update user here
-    if (error) {
+    const command = new RespondToAuthChallengeCommand({
+      ChallengeName: ChallengeNameType.NEW_PASSWORD_REQUIRED,
+      ChallengeResponses: {
+        USERNAME: challengeInfo.ChallengeParameters.USER_ID_FOR_SRP,
+        NEW_PASSWORD: password,
+      },
+      ClientId: AWSConfig.clientId,
+      Session: challengeInfo.Session,
+    });
+    try {
+      const res = await cognitoClient.send(command);
+      console.log(res);
+    } catch (error: any) {
+      console.log(error);
       setIsValidPassword(false);
       setErrorMessage(error.message);
       return;
@@ -67,7 +96,7 @@ const RecoveryForm: React.FC = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity dark:bg-slate-800 dark:bg-opacity-95" />
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity dark:bg-slate-700 dark:bg-opacity-95" />
           </Transition.Child>
 
           <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -90,7 +119,7 @@ const RecoveryForm: React.FC = () => {
                       >
                         Update your Password
                       </Dialog.Title>
-                      <div className="border-t-2 dark:border-slate-600">
+                      <div className="mt-3 border-t-2 dark:border-slate-600">
                         <form
                           onSubmit={handleSubmit}
                           className="grid grid-rows-3 gap-y-5 pt-5 pb-3 px-7"
@@ -176,7 +205,7 @@ const RecoveryForm: React.FC = () => {
                               <></>
                             )}
                           </div>
-                          <button className="font-semibold text-orange-500 hover:text-orange-400">
+                          <button className="font-semibold dark:text-gray-50 dark:hover:text-gray-300">
                             Submit
                           </button>
                         </form>
