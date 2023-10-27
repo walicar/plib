@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import useLocalStorageState from "use-local-storage-state";
 import { useCognito } from "../context/CognitoClient";
 import { CognitoIdentityProviderClient, InitiateAuthCommand, AuthFlowType} from "@aws-sdk/client-cognito-identity-provider";
 import { AWSConfig } from "../../config/aws";
@@ -6,6 +7,7 @@ import RecoveryForm from "../forms/RecoveryForm";
 
 function LogInPage() {
   const cognitoClient: CognitoIdentityProviderClient = useCognito();
+  const [token, setToken] = useLocalStorageState("token");
   const challengeInfo = useRef<any>();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -28,7 +30,8 @@ function LogInPage() {
       challengeInfo.current = res;
       setShowForm(true);
     } else {
-      console.log("ALL GOOD")
+      console.log("authenticated!")
+      setToken({accessToken: res.AuthenticationResult?.AccessToken, exp: res.AuthenticationResult?.ExpiresIn})
     }
   };
   return (

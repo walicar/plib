@@ -14,6 +14,7 @@ import {
   RespondToAuthChallengeCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import { AWSConfig } from "../../config/aws";
+import useLocalStorageState from "use-local-storage-state";
 
 type Prop = {
   challengeInfo: any;
@@ -22,6 +23,7 @@ type Prop = {
 const RecoveryForm: React.FC<Prop> = ({ challengeInfo }) => {
   // could refactor this to be "respond to challenge form"
   const cognitoClient: CognitoIdentityProviderClient = useCognito();
+  const [token, setToken] = useLocalStorageState("token");
   const [open, setOpen] = useState(true);
   const [show, setShow] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -66,6 +68,9 @@ const RecoveryForm: React.FC<Prop> = ({ challengeInfo }) => {
     try {
       const res = await cognitoClient.send(command);
       console.log(res);
+      if (res?.AuthenticationResult) {
+        setToken({accessToken: res.AuthenticationResult?.AccessToken, exp: res.AuthenticationResult?.ExpiresIn})
+      }
     } catch (error: any) {
       console.log(error);
       setIsValidPassword(false);
