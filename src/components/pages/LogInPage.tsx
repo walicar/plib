@@ -31,7 +31,7 @@ function LogInPage() {
       setShowForm(true);
     } else {
       console.log("authenticated!")
-      setToken({accessToken: res.AuthenticationResult?.AccessToken, exp: res.AuthenticationResult?.ExpiresIn})
+      setToken({accessToken: res.AuthenticationResult?.AccessToken, exp: Date.now() + res.AuthenticationResult!.ExpiresIn!})
     }
   };
   return (
