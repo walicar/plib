@@ -27,7 +27,7 @@ export async function onRequestPost({ request, next, env }) {
       `AccessToken=${AccessToken}; HttpOnly; Secure`
     );
     headers.append("Set-Cookie", `IdToken=${IdToken}; HttpOnly; Secure`);
-    headers.append("Set-Cookie", `ExpiresAt=${Date.now() + ExpiresIn};`);
+    headers.append("Set-Cookie", `ExpiresAt=${(Date.now()/1000) + ExpiresIn};`);
     //
     return new Response("Authenticated", {
       headers: headers,
