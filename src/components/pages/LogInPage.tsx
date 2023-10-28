@@ -1,15 +1,20 @@
 import { useState, useRef } from "react";
 import RecoveryForm from "../forms/RecoveryForm";
-
 function LogInPage() {
   const challengeInfo = useRef<any>();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [showForm, setShowForm] = useState<boolean>(false);
+  const [showForm, _] = useState<boolean>(false);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log(username, password);
-    const res = await fetch("/login", {method: "POST"})
+    const res = await fetch("/login", {
+      method: "POST",
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    });
     console.log(res);
   };
   return (
@@ -44,7 +49,11 @@ function LogInPage() {
           </div>
           <button>Submit</button>
         </form>
-        {showForm ? <RecoveryForm challengeInfo={challengeInfo.current} /> : <></>}
+        {showForm ? (
+          <RecoveryForm challengeInfo={challengeInfo.current} />
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

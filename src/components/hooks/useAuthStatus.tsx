@@ -6,6 +6,8 @@ const useAuthStatus = () => {
     const navigate = useNavigate();
     useEffect(() => {
         if (false) navigate("/login")
+        const token: any = {}
+        isExpired(token as Token)
     }, []);
   }
 
