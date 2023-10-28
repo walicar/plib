@@ -1,18 +1,19 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const useAuthStatus = () => {
-    // stateful logic
     const navigate = useNavigate();
+    const [cookies, ] = useCookies(["ExpiresAt"]);
     useEffect(() => {
-        if (false) navigate("/login")
-        const token: any = {}
-        isExpired(token as Token)
+        if (!cookies.ExpiresAt || isExpired(cookies.ExpiresAt)) {
+            navigate('/login');
+        }
     }, []);
   }
 
-const isExpired = (token:Token) => {
-    if (Date.now() > token.exp) {
+const isExpired = (timestamp: any) => {
+    if (Date.now() > timestamp) {
         return true;
     } else {
         return false;

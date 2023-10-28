@@ -6,7 +6,6 @@ import {
 
 export async function onRequestPost({ request, next, env }) {
   const { username, password } = await request.json();
-  console.log(env.REGION);
   const client = new CognitoIdentityProviderClient({
     region: env.REGION,
   });
@@ -22,18 +21,16 @@ export async function onRequestPost({ request, next, env }) {
   if (res.AuthenticationResult) {
     const { AccessToken, ExpiresIn, IdToken } = res.AuthenticationResult;
     const headers = new Headers();
+    //
     headers.append(
       "Set-Cookie",
       `AccessToken=${AccessToken}; HttpOnly; Secure`
     );
     headers.append("Set-Cookie", `IdToken=${IdToken}; HttpOnly; Secure`);
-    headers.append(
-      "Set-Cookie",
-      `ExpiresAt=${Date.now() + ExpiresIn}; HttpOnly; Secure`
-    );
-
+    headers.append("Set-Cookie", `ExpiresAt=${Date.now() + ExpiresIn};`);
+    //
     return new Response("Authenticated", {
-      headers: headers
+      headers: headers,
     });
   }
   return new Response("Challenge Required", {

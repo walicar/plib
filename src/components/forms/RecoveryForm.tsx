@@ -11,7 +11,7 @@ type Prop = {
   challengeInfo: any;
 };
 
-const RecoveryForm: React.FC<Prop> = ({ challengeInfo }) => {
+function RecoveryForm({ challengeInfo }: Prop) {
   // could refactor this to be "respond to challenge form"
   const [open, setOpen] = useState(true);
   const [show, setShow] = useState(false);
