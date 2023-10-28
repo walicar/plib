@@ -1,18 +1,11 @@
-import useLocalStorageState from "use-local-storage-state";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const useAuthStatus = () => {
     // stateful logic
-    const [token, , { removeItem }] = useLocalStorageState("token");
     const navigate = useNavigate();
     useEffect(() => {
-        if (!token || !isExpired(token as Token)) {
-            if (token) {
-                removeItem();
-            }
-            navigate("/login");
-        }
+        if (false) navigate("/login")
     }, []);
   }
 

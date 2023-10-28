@@ -1,8 +1,6 @@
 import { Transition } from "@headlessui/react";
-import useAuthStatus from "../hooks/useAuthStatus";
 
 function HomePage() {
-  useAuthStatus();
   return (
     <>
       <Transition

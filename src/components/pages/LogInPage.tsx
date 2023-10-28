@@ -1,13 +1,7 @@
 import { useState, useRef } from "react";
-import useLocalStorageState from "use-local-storage-state";
-import { useCognito } from "../context/CognitoClient";
-import { CognitoIdentityProviderClient, InitiateAuthCommand, AuthFlowType} from "@aws-sdk/client-cognito-identity-provider";
-import { AWSConfig } from "../../config/aws";
 import RecoveryForm from "../forms/RecoveryForm";
 
 function LogInPage() {
-  const cognitoClient: CognitoIdentityProviderClient = useCognito();
-  const [token, setToken] = useLocalStorageState("token");
   const challengeInfo = useRef<any>();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -15,24 +9,8 @@ function LogInPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log(username, password);
-    const command = new InitiateAuthCommand({
-      AuthFlow: AuthFlowType.USER_PASSWORD_AUTH,
-      AuthParameters: {
-        USERNAME: username,
-        PASSWORD: password,
-      },
-      ClientId: AWSConfig.clientId,
-    });
-    const res = await cognitoClient.send(command);
+    const res = await fetch("/login", {method: "POST"})
     console.log(res);
-    if (res?.ChallengeName == "NEW_PASSWORD_REQUIRED") {
-      console.log("Need to handle NEW_PASSWORD_REQUIRED")
-      challengeInfo.current = res;
-      setShowForm(true);
-    } else {
-      console.log("authenticated!")
-      setToken({accessToken: res.AuthenticationResult?.AccessToken, exp: Date.now() + res.AuthenticationResult!.ExpiresIn!})
-    }
   };
   return (
     <>
