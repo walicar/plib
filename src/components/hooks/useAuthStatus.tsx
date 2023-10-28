@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const useAuthStatus = () => {
-    // stateful loigic
+    // stateful logic
     const [token, , { removeItem }] = useLocalStorageState("token");
     const navigate = useNavigate();
     useEffect(() => {
