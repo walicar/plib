@@ -31,8 +31,9 @@ export async function onRequestGet({ request, nex, env }) {
     }
   })
   const listObjects = new ListObjectsV2Command({
-    Bucket: env.S3_BUCKET
+    Bucket: env.S3_BUCKET,
+    Delimiter: "/",
   })
-  const { Contents } = await s3.send(listObjects);
-  return Response.json(Contents);
+  const { Contents, CommonPrefixes } = await s3.send(listObjects);
+  return Response.json([...CommonPrefixes, ...Contents]);
 }

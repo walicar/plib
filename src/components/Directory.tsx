@@ -32,19 +32,29 @@ function Directory() {
     return <ShowError>Failed To Retrieve Files</ShowError>;
   }
   return (
-      <div className="text-md overflow-y-scroll">
-          <ul className="list-none">
-            {data.map((item: any) => (
-              <li key={item.ETag} className="my-2 flex">
+    <div className="text-md overflow-y-scroll">
+      <ul className="list-none">
+        {data.map((item: any) => {
+          if (item.Prefix) {
+            return (
+              <li key={item.Prefix} className="my-2 flex">
                 <div className="px-3 shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-200 dark:bg-slate-900 rounded-md p-1 ">
-                  <span className="font-semibold">
-                    {item.Key}
-                  </span>
+                  <span className="font-semibold">{item.Prefix}</span>
                 </div>
               </li>
-            ))}
-          </ul>
-        </div>
+            );
+          } else {
+            return (
+              <li key={item.ETag} className="my-2 flex">
+                <div className="px-3 shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-200 dark:bg-slate-900 rounded-md p-1 ">
+                  <span className="font-semibold">{item.Key}</span>
+                </div>
+              </li>
+            );
+          }
+        })}
+      </ul>
+    </div>
   );
 }
 
