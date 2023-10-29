@@ -5,6 +5,8 @@
  */
 
 import { useQuery } from "react-query";
+import LoadingHome from "./LoadingHome";
+import ShowError from "./ShowError";
 function Directory() {
   const { data, isLoading, error } = useQuery(
     "files",
@@ -23,11 +25,11 @@ function Directory() {
   );
 
   if (isLoading) {
-    return <h1>Loading..</h1>;
+    return <LoadingHome />;
   }
 
   if (error) {
-    return <h1>Error happened..</h1>;
+    return <ShowError>Failed To Retrieve Files</ShowError>;
   }
   return (
       <div className="text-md overflow-y-scroll">
