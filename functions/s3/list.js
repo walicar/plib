@@ -3,6 +3,14 @@ import { CognitoIdentityClient, GetCredentialsForIdentityCommand, GetIdCommand} 
 import parseCookies from "../util/parseCookies";
 
 export async function onRequestGet({ request, nex, env }) {
+  // Check search params for a prefix
+  const url = new URL(request.url);
+  const params = new URLSearchParams(url.search);
+  var prefix = "";
+  if (params.get("prefix")) {
+    prefix = params.get("prefix");
+  }
+
   const { IdToken } = parseCookies(request.headers.get("cookie"));
   const cognito = new CognitoIdentityClient({region: env.REGION});
   // Get IdentityId first
@@ -33,7 +41,9 @@ export async function onRequestGet({ request, nex, env }) {
   const listObjects = new ListObjectsV2Command({
     Bucket: env.S3_BUCKET,
     Delimiter: "/",
+    Prefix: prefix,
   })
   const { Contents, CommonPrefixes } = await s3.send(listObjects);
-  return Response.json([...CommonPrefixes, ...Contents]);
+  const result = [...(CommonPrefixes ? CommonPrefixes : []), ...(Contents ? Contents : [])]
+  return Response.json(result);
 }
