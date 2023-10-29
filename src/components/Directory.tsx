@@ -39,11 +39,8 @@ function Directory() {
   };
 
   const handleBreadcrumb = (newPrefix: string) => {
-    console.log(newPrefix)
-    console.log(prefix)
     if (newPrefix == prefix) return;
     const target = breadcrumbs.indexOf(newPrefix);
-    console.log(target)
     if (target >= 0) {
       // we are ascending from folder
       const newBreadcrumbs = breadcrumbs.slice(0, target + 1);
