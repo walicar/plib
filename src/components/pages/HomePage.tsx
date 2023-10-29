@@ -1,5 +1,6 @@
 import { Transition } from "@headlessui/react";
 import useAuthStatus from "../hooks/useAuthStatus";
+import Directory from "../Directory";
 
 function HomePage() {
   useAuthStatus();
@@ -19,6 +20,7 @@ function HomePage() {
           <h1 className="font-bold text-5xl">Library</h1>
           <input className="mt-4 px-2 text-lg rounded-md bg-gray-200 dark:bg-slate-800" placeholder="🔍"/>
         </div>
+        <Directory />
       </Transition>
     </>
   );
