@@ -6,7 +6,7 @@
 
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { FolderArrowDownIcon } from "@heroicons/react/20/solid";
+import { FolderArrowDownIcon, DocumentIcon, FolderIcon } from "@heroicons/react/20/solid";
 import LoadingHome from "./LoadingHome";
 import ShowError from "./ShowError";
 function Directory() {
@@ -99,7 +99,8 @@ function Directory() {
             if (item.Prefix) {
               return (
                 <li key={item.Prefix} className="my-2 flex">
-                  <div className="px-3 shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-200 dark:bg-slate-900 rounded-md p-1 ">
+                  <div className="px-3 inline-flex justify-center items-center shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-200 dark:bg-slate-900 rounded-md p-1 ">
+                    <FolderIcon className="px-1 h-5 w-auto"/>
                     <button
                       onClick={() => {
                         handleBreadcrumb(item.Prefix);
@@ -119,7 +120,8 @@ function Directory() {
                   className="my-2"
                 >
                   <div className="px-3 inline-flex justify-center items-center shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-200 dark:bg-slate-900 rounded-md p-1 ">
-                    <span className="w-[550px] truncate">
+                    <DocumentIcon className="px-1 h-5 w-auto"/>
+                    <span className="w-[100px] sm:w-[300px] xl:w-[525px] truncate">
                       {prefix == "/" ? item.Key : item.Key.replace(prefix, "")}
                     </span>
                     <div className="inline-flex justify-center items-center">
