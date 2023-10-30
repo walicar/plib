@@ -74,7 +74,7 @@ function Directory() {
                 selectPrefix(item);
                 handleBreadcrumb(item);
               }}
-              className="px-3 shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-200 dark:bg-slate-900 rounded-md p-1 mx-2"
+              className="px-3 font-semibold text-md shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-200 dark:bg-slate-900 rounded-md p-1 mx-2"
             >
               {item}
             </button>
@@ -83,7 +83,7 @@ function Directory() {
           );
         })}
       </div>
-      <div className="text-md overflow-y-scroll">
+      <div className="overflow-y-scroll">
         <ul className="list-none">
           {data.map((item: any) => {
             if (item.Prefix) {
@@ -106,7 +106,7 @@ function Directory() {
               return (
                 <li key={item.ETag} className="my-2 flex">
                   <div className="px-3 shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-200 dark:bg-slate-900 rounded-md p-1 ">
-                    <span className="font-semibold">{item.Key}</span>
+                    <span>{prefix == "/" ? item.Key : item.Key.replace(prefix, "")}</span>
                     <a href={`/s3/file?path=${item.Key}`} className="mx-3 p-1 px-2 bg-gray-100 dark:bg-slate-800 underline text-blue-900 dark:text-blue-300 rounded-md">DL</a>
                   </div>
                 </li>
