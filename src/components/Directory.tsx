@@ -56,13 +56,9 @@ function Directory() {
       setBreadcrumbs(newBreadcrumbs);
     } else {
       // we are descending into folder
-      appendBreadcrumb(newPrefix);
+      const newBreadcrumbs = [...breadcrumbs, newPrefix];
+      setBreadcrumbs(newBreadcrumbs);
     }
-  };
-
-  const appendBreadcrumb = (newPrefix: string) => {
-    const newBreadcrumbs = [...breadcrumbs, newPrefix];
-    setBreadcrumbs(newBreadcrumbs);
   };
 
   if (isLoading) {
