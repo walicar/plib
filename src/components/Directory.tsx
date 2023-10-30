@@ -74,7 +74,7 @@ function Directory() {
   }
   return (
     <>
-      <div className="mb-2">
+      <div className="mb-2 rounded-md p-2 shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-200 dark:bg-slate-900">
         {breadcrumbs.map((item: string, index: number, arr) => {
           return (
             <>
@@ -84,7 +84,7 @@ function Directory() {
                   selectPrefix(item);
                   handleBreadcrumb(item);
                 }}
-                className="px-3 font-semibold text-md shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-200 dark:bg-slate-900 rounded-md p-1 mx-2"
+                className="px-3 font-semibold text-md shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-100 dark:bg-slate-800 rounded-md p-1 mx-2"
               >
                 {item}
               </button>

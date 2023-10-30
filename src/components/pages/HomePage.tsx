@@ -17,7 +17,7 @@ function HomePage() {
         leaveTo="opacity-0"
       >
         <div className="flex gap-x-10 items-center pb-5">
-          <h1 className="font-bold text-5xl">Library</h1>
+          <h1 className="font-bold text-5xl">Files</h1>
         </div>
         <Directory />
       </Transition>
