@@ -7,7 +7,7 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { FolderArrowDownIcon, DocumentIcon, FolderIcon } from "@heroicons/react/20/solid";
-import LoadingHome from "./LoadingHome";
+import LoadingDirectory from "./LoadingDirectory";
 import ShowError from "./ShowError";
 function Directory() {
   const [prefix, setPrefix] = useState<string>("/");
@@ -62,7 +62,7 @@ function Directory() {
   };
 
   if (isLoading) {
-    return <LoadingHome />;
+    return <LoadingDirectory />;
   }
 
   if (error) {
