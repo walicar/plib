@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react";
 import useAuthStatus from "../hooks/useAuthStatus";
-import Directory from "../Directory";
+import Directory from "../directory/Directory";
 
 function HomePage() {
   useAuthStatus();
