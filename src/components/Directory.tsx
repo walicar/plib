@@ -21,7 +21,6 @@ function Directory() {
           url += "?prefix=" + prefix;
         }
         const data = await (await fetch(url)).json();
-        console.log(data);
         return data;
       } catch (e: any) {
         throw new Error(e || e?.message);
@@ -46,7 +45,6 @@ function Directory() {
       const newBreadcrumbs = breadcrumbs.slice(0, target + 1);
       setBreadcrumbs(newBreadcrumbs);
     } else {
-      console.log("this should happen");
       // we are descending into folder
       appendBreadcrumb(newPrefix);
     }
@@ -109,6 +107,7 @@ function Directory() {
                 <li key={item.ETag} className="my-2 flex">
                   <div className="px-3 shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-200 dark:bg-slate-900 rounded-md p-1 ">
                     <span className="font-semibold">{item.Key}</span>
+                    <a href={`/s3/file?path=${item.Key}`} className="mx-3 p-1 px-2 bg-gray-100 dark:bg-slate-800 underline text-blue-900 dark:text-blue-300 rounded-md">DL</a>
                   </div>
                 </li>
               );
