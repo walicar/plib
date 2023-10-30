@@ -19,13 +19,15 @@ export async function onRequestPost({ request, next, env }) {
   });
   const res = await client.send(command);
   if (res.AuthenticationResult) {
-    const { AccessToken, ExpiresIn, IdToken } = res.AuthenticationResult;
+    const { ExpiresIn, IdToken } = res.AuthenticationResult;
     const headers = new Headers();
     //
-    headers.append(
-      "Set-Cookie",
-      `AccessToken=${AccessToken}; HttpOnly; Secure`
-    );
+
+    // headers.append(
+    //   "Set-Cookie",
+    //   `AccessToken=${AccessToken}; HttpOnly; Secure`
+    // );
+
     headers.append("Set-Cookie", `IdToken=${IdToken}; HttpOnly; Secure`);
     headers.append("Set-Cookie", `ExpiresAt=${(Date.now()/1000) + ExpiresIn};`);
     //
