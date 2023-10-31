@@ -5,7 +5,7 @@
  *  with verified emails.
  */
 
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState } from "react";
 import InputStyles from "../../styles/InputStyles";
 import {
   CheckCircleIcon,
@@ -26,10 +26,6 @@ function RecoveryForm({ challengeInfo }: Prop) {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [isValidPassword, setIsValidPassword] = useState(true);
-
-  useEffect(() => {
-    console.log(challengeInfo);
-  }, []);
 
   const clearForm = () => {
     setPassword("");
@@ -53,7 +49,6 @@ function RecoveryForm({ challengeInfo }: Prop) {
       return;
     }
 
-    console.log(challengeInfo);
     const body = {
       ChallengeName: "NEW_PASSWORD_REQUIRED",
       Session: challengeInfo.Session,

@@ -22,7 +22,6 @@ export async function onRequestPost({ request, next, env }) {
   if (AuthenticationResult) {
     const { ExpiresIn, IdToken } = AuthenticationResult;
     const headers = new Headers();
-    //
 
     // headers.append(
     //   "Set-Cookie",
@@ -31,7 +30,6 @@ export async function onRequestPost({ request, next, env }) {
 
     headers.append("Set-Cookie", `IdToken=${IdToken}; HttpOnly; Secure`);
     headers.append("Set-Cookie", `ExpiresAt=${Date.now() / 1000 + ExpiresIn};`);
-    //
     return new Response("Authenticated", {
       headers: headers,
     });

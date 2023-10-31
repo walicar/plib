@@ -9,7 +9,6 @@ import {
 
 export async function onRequestPost({ request, next, env }) {
   const { ChallengeName, Session, ChallengeParameters } = await request.json();
-  console.log(ChallengeParameters);
   const client = new CognitoIdentityProviderClient({
     region: env.REGION,
   });
