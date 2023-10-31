@@ -1,9 +1,3 @@
-/**
- * @todo should only send query when we have cookies
- *  when we sign in and move into "/" we get 400 err
- *  caught by middleware
- */
-
 import { useState } from "react";
 import { useQuery } from "react-query";
 import LoadingDirectory from "./LoadingDirectory";
