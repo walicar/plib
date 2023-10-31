@@ -19,10 +19,3 @@ function Folder({ item, onClick }: Prop) {
 }
 
 export default Folder;
-
-/**
- * () => {
-            handleBreadcrumb(item.Prefix);
-            selectPrefix(item.Prefix);
-          }
- */
