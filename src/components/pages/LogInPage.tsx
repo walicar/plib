@@ -1,6 +1,12 @@
+/**
+ * @todo must show errors from res
+ *  check if !res.ok, display res.statusText
+ */
+
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import RecoveryForm from "../forms/RecoveryForm";
+
 function LogInPage() {
   const challengeInfo = useRef<any>();
   const navigate = useNavigate();
@@ -17,15 +23,19 @@ function LogInPage() {
         password: password,
       }),
     });
-
-    const data = await res.json();
-
-    if (data.ChallengeName == "NEW_PASSWORD_REQUIRED") {
-      challengeInfo.current = data;
-      setShowForm(true);
+    const headers = new Headers(res.headers);
+    if (headers.get("Content-Type")?.includes("json")) {
+      const data = await res.json();
+      if (data.ChallengeName == "NEW_PASSWORD_REQUIRED") {
+        challengeInfo.current = data;
+        setShowForm(true);
+      } else {
+        console.error("Unhandled challenge");
+      }
     } else {
       navigate("/")
     }
+
   };
   return (
     <>
