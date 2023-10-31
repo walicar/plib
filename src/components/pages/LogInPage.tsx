@@ -1,7 +1,9 @@
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import RecoveryForm from "../forms/RecoveryForm";
 function LogInPage() {
   const challengeInfo = useRef<any>();
+  const navigate = useNavigate();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showForm, setShowForm] = useState<boolean>(false);
@@ -21,6 +23,8 @@ function LogInPage() {
     if (data.ChallengeName == "NEW_PASSWORD_REQUIRED") {
       challengeInfo.current = data;
       setShowForm(true);
+    } else {
+      navigate("/")
     }
   };
   return (
