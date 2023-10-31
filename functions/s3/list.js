@@ -19,17 +19,20 @@ export async function onRequestGet({ request, nex, env }) {
     credentials: {
       accessKeyId: Credentials.AccessKeyId,
       secretAccessKey: Credentials.SecretKey,
-      sessionToken: Credentials.SessionToken
-    }
-  })
+      sessionToken: Credentials.SessionToken,
+    },
+  });
 
   const listObjects = new ListObjectsV2Command({
     Bucket: env.S3_BUCKET,
     Delimiter: "/",
     Prefix: prefix,
-  })
+  });
 
   const { Contents, CommonPrefixes } = await s3.send(listObjects);
-  const result = [...(CommonPrefixes ? CommonPrefixes : []), ...(Contents ? Contents : [])]
+  const result = [
+    ...(CommonPrefixes ? CommonPrefixes : []),
+    ...(Contents ? Contents : []),
+  ];
   return Response.json(result);
 }

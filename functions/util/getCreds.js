@@ -1,7 +1,7 @@
 import {
   CognitoIdentityClient,
   GetCredentialsForIdentityCommand,
-  GetIdCommand
+  GetIdCommand,
 } from "@aws-sdk/client-cognito-identity";
 
 export default async function getCreds(IdToken, env) {

@@ -1,6 +1,5 @@
 {
-    "version": 1,
-    "include": ["/*"],
-    "exclude": ["/util/*"]
- }
- 
+  "version": 1,
+  "include": ["/*"],
+  "exclude": ["/util/*"]
+}

@@ -10,10 +10,7 @@ function Folder({ item, onClick }: Prop) {
     <li key={item.Prefix} className="my-2 flex">
       <div className="px-3 inline-flex justify-center items-center shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-200 dark:bg-slate-900 rounded-md p-1 ">
         <FolderIcon className="px-1 h-5 w-auto" />
-        <button
-          onClick={onClick}
-          className="font-semibold"
-        >
+        <button onClick={onClick} className="font-semibold">
           {item.Prefix}
         </button>
       </div>
@@ -22,7 +19,6 @@ function Folder({ item, onClick }: Prop) {
 }
 
 export default Folder;
-
 
 /**
  * () => {

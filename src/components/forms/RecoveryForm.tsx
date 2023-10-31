@@ -53,7 +53,7 @@ function RecoveryForm({ challengeInfo }: Prop) {
       return;
     }
 
-    console.log(challengeInfo)
+    console.log(challengeInfo);
     const body = {
       ChallengeName: "NEW_PASSWORD_REQUIRED",
       Session: challengeInfo.Session,

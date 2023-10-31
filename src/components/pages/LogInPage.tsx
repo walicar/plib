@@ -19,7 +19,7 @@ function LogInPage() {
     const data = await res.json();
 
     if (data.ChallengeName == "NEW_PASSWORD_REQUIRED") {
-      challengeInfo.current = data
+      challengeInfo.current = data;
       setShowForm(true);
     }
   };

@@ -15,7 +15,7 @@ body {
 }
 
 body {
-  @apply transition-none
+  @apply transition-none;
 }
 
 article {
@@ -46,15 +46,15 @@ article {
   }
 
   hr {
-    @apply dark:border-slate-700
+    @apply dark:border-slate-700;
   }
 
   .footnote {
-    @apply bg-gradient-to-tr from-gray-300 shadow-sm to-gray-50 dark:from-slate-800 dark:to-slate-600 rounded-lg no-underline px-2 py-1
+    @apply bg-gradient-to-tr from-gray-300 shadow-sm to-gray-50 dark:from-slate-800 dark:to-slate-600 rounded-lg no-underline px-2 py-1;
   }
 
   .emph {
-    @apply font-semibold
+    @apply font-semibold;
   }
 }
 

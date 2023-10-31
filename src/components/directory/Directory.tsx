@@ -30,7 +30,7 @@ function Directory() {
     },
     {
       refetchOnWindowFocus: false,
-    }
+    },
   );
 
   const selectPrefix = (newPrefix: string) => {

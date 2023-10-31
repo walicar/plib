@@ -1,1 +1,1 @@
-export const CookieConfig = { path: "/", sameSite: 'lax' }
+export const CookieConfig = { path: "/", sameSite: "lax" };
