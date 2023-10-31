@@ -4,10 +4,10 @@ function LogInPage() {
   const challengeInfo = useRef<any>();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [showForm, _] = useState<boolean>(false);
+  const [showForm, setShowForm] = useState<boolean>(false);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(username, password);
+
     const res = await fetch("/login", {
       method: "POST",
       body: JSON.stringify({
@@ -15,7 +15,13 @@ function LogInPage() {
         password: password,
       }),
     });
-    console.log(res);
+
+    const data = await res.json();
+
+    if (data.ChallengeName == "NEW_PASSWORD_REQUIRED") {
+      challengeInfo.current = data
+      setShowForm(true);
+    }
   };
   return (
     <>

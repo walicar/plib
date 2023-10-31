@@ -17,9 +17,10 @@ export async function onRequestPost({ request, next, env }) {
     },
     ClientId: env.COG_CLIENT_ID,
   });
-  const res = await client.send(command);
-  if (res.AuthenticationResult) {
-    const { ExpiresIn, IdToken } = res.AuthenticationResult;
+  const { AuthenticationResult, ChallengeName, ChallengeParameters, Session } =
+    await client.send(command);
+  if (AuthenticationResult) {
+    const { ExpiresIn, IdToken } = AuthenticationResult;
     const headers = new Headers();
     //
 
@@ -29,13 +30,16 @@ export async function onRequestPost({ request, next, env }) {
     // );
 
     headers.append("Set-Cookie", `IdToken=${IdToken}; HttpOnly; Secure`);
-    headers.append("Set-Cookie", `ExpiresAt=${(Date.now()/1000) + ExpiresIn};`);
+    headers.append("Set-Cookie", `ExpiresAt=${Date.now() / 1000 + ExpiresIn};`);
     //
     return new Response("Authenticated", {
       headers: headers,
     });
+  } else {
+    return Response.json({
+      ChallengeName: ChallengeName,
+      ChallengeParameters: ChallengeParameters,
+      Session: Session,
+    });
   }
-  return new Response("Challenge Required", {
-    body: JSON.stringify(res),
-  });
 }

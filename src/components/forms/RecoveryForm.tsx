@@ -1,7 +1,8 @@
 /**
- * @todo I don't think you've integrated me yet,
- *  make sure we get this thing working with
- *  challenges from "/login" endpoint
+ * @todo File too large, refactor.
+ * @note This won't work if challenge requires email.
+ *  Make sure to configure additional users in the console
+ *  with verified emails.
  */
 
 import { Fragment, useState, useEffect } from "react";
@@ -51,9 +52,29 @@ function RecoveryForm({ challengeInfo }: Prop) {
       setErrorMessage("Passwords do not match");
       return;
     }
-    clearForm();
-    setOpen(false);
-    setShow(true);
+
+    console.log(challengeInfo)
+    const body = {
+      ChallengeName: "NEW_PASSWORD_REQUIRED",
+      Session: challengeInfo.Session,
+      ChallengeParameters: {
+        USERNAME: challengeInfo.ChallengeParameters.USER_ID_FOR_SRP,
+        NEW_PASSWORD: password,
+      },
+    };
+
+    const res = await fetch("/respond", {
+      method: "POST",
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+      setErrorMessage(res.statusText);
+    } else {
+      clearForm();
+      setOpen(false);
+      setShow(true);
+    }
   };
 
   return (
@@ -212,7 +233,7 @@ function RecoveryForm({ challengeInfo }: Prop) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white dark:bg-slate-900 dark:text-neutral-50 dark:ring-slate-600 shadow-lg ring-1 ring-black ring-opacity-5">
+            <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white dark:bg-slate-900 dark:text-neutral-50 dark:ring-slate-800 shadow-lg ring-1 ring-black ring-opacity-5">
               <div className="p-4">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
@@ -249,6 +270,6 @@ function RecoveryForm({ challengeInfo }: Prop) {
       </div>
     </>
   );
-};
+}
 
 export default RecoveryForm;
