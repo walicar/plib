@@ -18,7 +18,7 @@ function File({ item, prefix }: Prop) {
   return (
     <li key={item.ETag} className="my-2">
       <div className="px-3 inline-flex justify-center items-center shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-200 dark:bg-slate-900 rounded-md p-1 ">
-        <DocumentIcon className="px-1 h-5 w-auto" />
+        <DocumentIcon className="pr-1 h-5 w-auto" />
         <span className="w-[100px] sm:w-[300px] xl:w-[525px] truncate">
           {prefix == "/" ? item.Key : item.Key.replace(prefix, "")}
         </span>
