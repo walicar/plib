@@ -24,6 +24,6 @@ Host a webapp to access your S3 files using Cognito credentials.
 
 - configure `.dev.vars` for CloudFlare Functions
   - Look through `functions/` for required env vars
-  - You will need: Congito Userpool ID, Cognito Client ID, Congnito Identitypool ID, S3 Bucket name, and AWS region.
+  - You will need: Cognito Userpool ID, Cognito Client ID, Cognito Identitypool ID, S3 Bucket name, and AWS region.
 - `npm i && npm run build` to setup project
 - `npm run pages` to run webapp in development mode
