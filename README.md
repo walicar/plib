@@ -1,7 +1,8 @@
 # plib
 
-A personal webapp to download items from an S3 bucket.
 ![docs/plib.png](docs/plib.png)
+
+Host a webapp to access your S3 files using Cognito credentials. 
 
 ## Stack
 
@@ -22,4 +23,7 @@ A personal webapp to download items from an S3 bucket.
 ## Development
 
 - configure `.dev.vars` for CloudFlare Functions
-- `npm run pdev` to run server in development mode
+  - Look through `functions/` for required env vars
+  - You will need: Congito Userpool ID, Cognito Client ID, Congnito Identitypool ID, S3 Bucket name, and AWS region.
+- `npm i && npm run build` to setup project
+- `npm run pages` to run webapp in development mode
