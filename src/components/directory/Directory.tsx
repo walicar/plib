@@ -10,6 +10,8 @@ import LoadingDirectory from "./LoadingDirectory";
 import ShowError from "../ShowError";
 import Folder from "./Folder";
 import File from "./File";
+import Breadcrumbs from "./Breadcrumbs";
+
 function Directory() {
   const [prefix, setPrefix] = useState<string>("/");
   const [breadcrumbs, setBreadcrumbs] = useState<string[]>(["/"]);
@@ -63,23 +65,13 @@ function Directory() {
   return (
     <>
       <div className="mb-2 rounded-md p-2 shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-200 dark:bg-slate-900">
-        {breadcrumbs.map((item: string, index: number, arr) => {
-          return (
-            <>
-              <button
-                key={item}
-                onClick={() => {
-                  selectPrefix(item);
-                  handleBreadcrumb(item);
-                }}
-                className="px-3 font-semibold text-md shadow-sm dark:bg-opacity-80 bg-opacity-50 bg-gray-100 dark:bg-slate-800 rounded-md p-1 mx-2"
-              >
-                {item == "/" ? "Home" : item.substring(0, item.length - 1)}
-              </button>
-              {index != arr.length - 1 ? <span>{"/"}</span> : <></>}
-            </>
-          );
-        })}
+        <Breadcrumbs
+          breadcrumbs={breadcrumbs}
+          handle={(item) => {
+            selectPrefix(item);
+            handleBreadcrumb(item);
+          }}
+        />
       </div>
       <div className="overflow-y-scroll">
         <ul className="list-none">
