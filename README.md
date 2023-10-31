@@ -1,13 +1,19 @@
 # plib
-
-Deploy a personal web app to upload / download items from an S3 bucket.
+A personal webapp to download items from an S3 bucket.
+![docs/plib.png](docs/plib.png)
+## Stack
+- React.js
+- CloudFlare functions
 
 ## Requirements
-
-- AWS Cognito User Pool
+- AWS Cognito User / Identity Pool
 - AWS S3
+    - Necessary IAM Policies: List, Get
+- CloudFlare account
 
-## Usage
+## Deployment
+- Deploy using [CloudFlare Pages](https://developers.cloudflare.com/pages/framework-guides/deploy-anything)
 
-- `npm i && npm build && npm run start` to run server in production mode
-- `npm run dev` to run server in development mode
+## Development
+- configure `.dev.vars` for CloudFlare Functions
+- `npm run pdev` to run server in development mode
