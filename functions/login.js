@@ -4,7 +4,7 @@ import {
   AuthFlowType,
 } from "@aws-sdk/client-cognito-identity-provider";
 
-export async function onRequestPost({ request, next, env }) {
+export async function onRequestPost({ request, env }) {
   const { username, password } = await request.json();
   const client = new CognitoIdentityProviderClient({
     region: env.REGION,

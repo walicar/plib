@@ -2,7 +2,7 @@ import { ListObjectsV2Command, S3Client } from "@aws-sdk/client-s3";
 import getCreds from "../util/getCreds";
 import parseCookies from "../util/parseCookies";
 
-export async function onRequestGet({ request, nex, env }) {
+export async function onRequestGet({ request, env }) {
   // Check search params for a prefix
   const url = new URL(request.url);
   const params = new URLSearchParams(url.search);

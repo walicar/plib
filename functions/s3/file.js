@@ -6,7 +6,7 @@ import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import parseCookies from "../util/parseCookies";
 import getCreds from "../util/getCreds";
 
-export async function onRequestGet({ request, nex, env }) {
+export async function onRequestGet({ request, env }) {
   // Check search params for a path
   const url = new URL(request.url);
   const params = new URLSearchParams(url.search);
