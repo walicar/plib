@@ -7,5 +7,6 @@ export default function parseCookies(string) {
     const [key, value] = cookie.split("=");
     dict[key.trim()] = value;
   });
+  delete dict[""];
   return dict;
 }
