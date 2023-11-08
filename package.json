@@ -9,7 +9,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "pages": "npx wrangler pages dev dist",
     "pdev": "npm run build && npm run pages",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity": "^3.438.0",
@@ -37,6 +38,7 @@
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "jsdom": "^22.1.0",
     "postcss": "^8.4.29",
     "postcss-nesting": "^12.0.1",
     "tailwindcss": "^3.3.3",
